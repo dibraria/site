@@ -1,0 +1,12 @@
+{
+  "name": "dibraria-site",
+  "version": "1.0.0",
+  "description": "Catálogo de camisas Dibraria — site + backend serverless",
+  "dependencies": {
+    "axios": "1.6.8",
+    "cheerio": "1.0.0-rc.12"
+  },
+  "engines": {
+    "node": "20.x"
+  }
+}
