@@ -32,7 +32,7 @@
       --fb:'Sora',sans-serif;
     }
     html{scroll-behavior:smooth}
-    body{background:var(--bg);color:var(--text);font-family:var(--fb);min-height:100vh;overflow-x:hidden;display:flex;flex-direction:column}
+    body{background:var(--bg);color:var(--text);font-family:var(--fb);min-height:100vh;overflow-x:hidden}
 
     /* ── GRADIENTS ── */
     .grad-green{background:linear-gradient(135deg,var(--green),var(--green2))}
@@ -49,7 +49,7 @@
       box-shadow:0 2px 12px rgba(0,0,0,0.07);
     }
     .header-inner{
-      max-width:1280px;margin:0 auto;padding:0 24px;
+      max-width:680px;margin:0 auto;padding:0 16px;
       height:100%;display:flex;align-items:center;
     }
     .logo-text-wrap{display:flex;align-items:center;cursor:pointer;flex-shrink:0}
@@ -103,82 +103,61 @@
     }
 
     /* ── HERO ── */
-    /* ── HERO MOBILE FIRST ── */
     .hero{
-      padding:40px 16px 40px;text-align:center;
-      background:linear-gradient(160deg, #1a6b2e 0%, #1e7a34 60%, #23882e 100%);
+      position:relative;overflow:hidden;
+      padding:72px 20px 64px;text-align:center;
+      background:
+        radial-gradient(ellipse 140% 80% at 50% 110%, rgba(0,0,0,0.75) 0%, transparent 65%),
+        radial-gradient(ellipse 100% 55% at 50% 0%,   rgba(0,0,0,0.60) 0%, transparent 60%),
+        radial-gradient(ellipse 55% 38% at 28% 28%,   rgba(255,248,200,0.09) 0%, transparent 60%),
+        radial-gradient(ellipse 55% 38% at 72% 28%,   rgba(255,248,200,0.09) 0%, transparent 60%),
+        repeating-linear-gradient(
+          180deg,
+          #1b5e2a 0px, #1b5e2a 52px,
+          #1e6b2f 52px, #1e6b2f 104px
+        );
+    }
+    .hero::before{
+      content:'';position:absolute;inset:0;pointer-events:none;
+      background:
+        repeating-linear-gradient(
+          162deg,
+          transparent 0px, transparent 24px,
+          rgba(255,255,255,0.022) 24px, rgba(255,255,255,0.022) 26px
+        );
+    }
+    .hero::after{
+      content:'';position:absolute;inset:0;pointer-events:none;
+      background:
+        radial-gradient(circle 90px at 50% 108%, transparent 87px, rgba(255,255,255,0.14) 88px, rgba(255,255,255,0.14) 91px, transparent 92px),
+        linear-gradient(to right, transparent calc(50% - 0.5px), rgba(255,255,255,0.12) calc(50% - 0.5px), rgba(255,255,255,0.12) calc(50% + 0.5px), transparent calc(50% + 0.5px));
+    }
+    #heroCanvas{
+      position:absolute;inset:0;width:100%;height:100%;
+      pointer-events:none;opacity:0.22;
     }
     .hero h1{
       transition:opacity .4s ease;
       font-family:var(--fd);font-size:clamp(28px,7vw,52px);
-      font-weight:900;letter-spacing:-1px;
-      color:#fff;line-height:1.05;margin-bottom:6px;
+      font-weight:800;letter-spacing:-0.5px;
+      color:var(--white);line-height:1.08;margin-bottom:8px;
+      position:relative;z-index:1;
+      text-shadow:0 2px 28px rgba(0,0,0,0.6);
     }
     .hero h1 em{font-style:normal;color:var(--yellow)}
     .hero-sub{
       transition:opacity .4s ease;
-      font-size:11px;letter-spacing:2px;text-transform:uppercase;
-      color:rgba(255,255,255,0.5);font-weight:500;
-      margin-bottom:24px;
-    }
-    /* busca */
-    .hero-search{max-width:680px;margin:0 auto;}
-    .hero-search-inner{
-      display:flex;align-items:center;
-      background:#fff;border-radius:100px;
-      box-shadow:0 8px 32px rgba(0,0,0,0.25);
-      padding:5px 5px 5px 16px;
-      border:2px solid rgba(255,255,255,0.3);
-    }
-    .hero-search-inner:focus-within{
-      border-color:var(--yellow);
-      box-shadow:0 8px 32px rgba(0,0,0,0.3),0 0 0 3px rgba(245,200,0,0.25);
-    }
-    .hero-sinput{
-      flex:1;min-width:0;border:none;outline:none;background:transparent;
-      font-family:var(--fb);font-size:14px;color:var(--text);padding:8px 0;
-    }
-    .hero-sinput::placeholder{color:var(--muted)}
-    .hero-voice{
-      background:none;border:none;cursor:pointer;
-      color:var(--muted);padding:7px;flex-shrink:0;
-      display:flex;align-items:center;border-radius:50%;transition:all .15s;
-    }
-    .hero-voice:hover{color:var(--green)}
-    .hero-voice.listening{color:#e53935;animation:micPulse .8s ease-in-out infinite alternate}
-    .hero-sbtn{
-      background:linear-gradient(135deg,var(--green),var(--green2));
-      color:#fff;border:none;border-radius:100px;
-      padding:10px 18px;font-family:var(--fd);font-size:14px;
-      font-weight:700;cursor:pointer;white-space:nowrap;flex-shrink:0;
-      transition:opacity .15s;
-    }
-    .hero-sbtn:hover{opacity:.88}
-    .hero-sbtn:disabled{opacity:.4;cursor:not-allowed}
-    /* trending */
-    .trending{
-      margin:14px auto 0;max-width:680px;
-      display:flex;align-items:center;gap:6px;flex-wrap:wrap;justify-content:center;
-    }
-    .trending-label{
-      font-size:10px;font-weight:600;letter-spacing:1px;text-transform:uppercase;
-      color:rgba(255,255,255,0.4);white-space:nowrap;
-    }
-    .trending-pill{
-      background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.18);
-      color:rgba(255,255,255,0.8);font-size:11px;font-weight:500;
-      padding:4px 10px;border-radius:100px;cursor:pointer;
-      transition:all .15s;white-space:nowrap;font-family:var(--fb);
-    }
-    .trending-pill:hover{background:rgba(255,255,255,0.2);color:#fff}
-    @media(min-width:600px){
-      .hero{padding:64px 24px 52px}
-      .hero-sinput{font-size:15px}
-      .hero-sbtn{padding:12px 28px;font-size:16px}
+      font-size:12px;letter-spacing:1.5px;text-transform:uppercase;
+      color:rgba(255,255,255,0.5);position:relative;z-index:1;font-weight:500;
     }
 
-    /* ── SEARCH (mantido para tela de resultados) ── */
-    @keyframes micPulse{0%{transform:scale(1)}100%{transform:scale(1.2)}}
+    /* ── SEARCH ── */
+    .search-wrap{max-width:680px;margin:-28px auto 0;padding:0 16px 24px;position:relative;z-index:10}
+    .search-card{
+      background:var(--white);border-radius:var(--radius);
+      box-shadow:var(--shadow-md);overflow:hidden;
+      border:1.5px solid var(--border);
+    }
     .store-row{
       display:flex;align-items:center;gap:8px;
       padding:12px 16px;border-bottom:1.5px solid var(--border);
@@ -205,75 +184,14 @@
 
     /* ── CATEGORY BADGES ── */
     /* HOME — badges em 2 linhas, centralizado */
-    /* ── CATEGORIAS VISUAIS ── */
-    .cat-section{
-      max-width:1280px;margin:0 auto;
-      padding:24px 16px 28px;
+    .cat-row{
+      display:flex;gap:8px;flex-wrap:wrap;justify-content:center;
+      padding:0 16px 28px;max-width:680px;margin:0 auto;
     }
-    .cat-section-title{
-      font-family:var(--fd);font-size:13px;font-weight:700;
-      letter-spacing:2px;text-transform:uppercase;
-      color:var(--muted);margin-bottom:16px;
-    }
-    .cat-visual-row{
-      display:grid;
-      grid-template-columns:repeat(5,1fr);
-      gap:12px;
-    }
-    @media(max-width:700px){
-      .cat-visual-row{grid-template-columns:repeat(4,1fr);gap:10px}
-    }
-    @media(max-width:480px){
-      .cat-visual-row{grid-template-columns:repeat(4,1fr);gap:8px}
-    }
-    .cat-visual-btn{
-      display:flex;flex-direction:column;align-items:center;gap:7px;
-      background:none;border:none;cursor:pointer;padding:0;
-      transition:transform .18s;
-    }
-    .cat-visual-btn:hover{transform:translateY(-3px)}
-    .cat-visual-btn:hover .cat-circle{border-color:var(--green);box-shadow:0 4px 16px rgba(26,107,46,0.2)}
-    .cat-visual-btn.active .cat-circle{border-color:var(--green);box-shadow:0 0 0 3px rgba(26,107,46,0.15);background:#edfaf1}
-    .cat-visual-btn.active .cat-circle.pe{background:linear-gradient(135deg,#1a6b2e,#23882e)}
-    .cat-visual-btn.active .cat-visual-label{color:var(--green);font-weight:800}
-    .cat-circle{
-      width:64px;height:64px;border-radius:50%;
-      background:var(--white);border:2px solid var(--border);
-      display:flex;align-items:center;justify-content:center;
-      font-size:28px;line-height:1;
-      transition:all .18s;
-      box-shadow:var(--shadow);
-    }
-    .cat-circle.pe{
-      background:var(--white);border:2px solid var(--green);font-size:24px;color:var(--green);
-    }
-    .cat-circle-img{
-      padding:14px;background:#fff;
-    }
-    .cat-circle-img img{
-      width:100%;height:100%;object-fit:contain;
-      display:block;border-radius:0;
-    }
-    .cat-visual-label{
-      font-size:10px;font-weight:700;letter-spacing:.3px;
-      text-transform:uppercase;color:var(--text2);
-      text-align:center;line-height:1.2;
-    }
-    @media(min-width:600px){
-      .cat-circle{width:76px;height:76px;font-size:34px}
-      .cat-circle.pe{font-size:28px}
-      .cat-visual-label{font-size:11px}
-      .cat-visual-row{grid-template-columns:repeat(9,1fr);gap:12px}
-    }
-    @media(min-width:900px){
-      .cat-circle{width:84px;height:84px;font-size:38px}
-    }
-    /* manter cat-row para resultados (não usamos mais na home) */
-    .cat-row{display:none}
     /* RESULTS — scroll horizontal com wrapper */
     .results-cats-wrap{
       position:relative;
-      max-width:1280px;margin:0 auto;
+      max-width:680px;margin:0 auto;
     }
     .results-cats-wrap::after{
       content:'';position:absolute;right:0;top:0;
@@ -311,8 +229,7 @@
       letter-spacing:.2px;
     }
     .cat-badge:hover{border-color:var(--green);color:var(--green);background:#f4faf5;transform:translateY(-1px);box-shadow:var(--shadow-md)}
-    .cat-badge .cat-icon{font-size:14px;display:flex;align-items:center}
-    .cat-badge .cat-logo{width:16px;height:16px;object-fit:contain;flex-shrink:0}
+    .cat-badge .cat-icon{font-size:14px}
     .sbtn{
       background:linear-gradient(135deg,var(--green),var(--yellow));
       color:var(--white);border:none;
@@ -324,7 +241,7 @@
     .sbtn:disabled{opacity:.4;cursor:not-allowed}
 
 /* ── STATUS ── */
-    .status{max-width:1280px;margin:0 auto;padding:0 24px 12px;display:none;align-items:center;gap:10px}
+    .status{max-width:680px;margin:0 auto;padding:0 16px 12px;display:none;align-items:center;gap:10px}
     .status.on{display:flex}
     /* ── BOLA inline (pequena) ── */
     .spin{
@@ -425,9 +342,9 @@
     .stxt{font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);font-weight:500}
 
     /* ── SECTION ── */
-    .section{max-width:1280px;margin:0 auto;padding:0 24px 40px}
-    .section-head{display:flex;align-items:center;gap:12px;margin-bottom:18px}
-    .section-title{font-family:var(--fd);font-size:22px;font-weight:900;color:var(--text);letter-spacing:-.3px}
+    .section{max-width:680px;margin:0 auto;padding:0 16px 36px}
+    .section-head{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+    .section-title{font-family:var(--fd);font-size:18px;font-weight:900;color:var(--text)}
     .section-pill{
       background:linear-gradient(135deg,var(--blue),var(--blue2));
       color:var(--white);font-size:9px;font-weight:700;
@@ -436,11 +353,10 @@
     }
 
     /* ── NETFLIX GRID ── */
-    .nf-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
-    @media(min-width:480px){.nf-grid{grid-template-columns:repeat(3,1fr)}}
-    @media(min-width:700px){.nf-grid{grid-template-columns:repeat(4,1fr)}}
-    @media(min-width:900px){.nf-grid{grid-template-columns:repeat(5,1fr)}}
-    @media(min-width:1100px){.nf-grid{grid-template-columns:repeat(6,1fr)}}
+    .nf-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+    @media(min-width:440px){.nf-grid{grid-template-columns:repeat(3,1fr)}}
+    @media(min-width:620px){.nf-grid{grid-template-columns:repeat(4,1fr)}}
+    @media(min-width:800px){.nf-grid{grid-template-columns:repeat(5,1fr)}}
 
     .nf-card{
       background:var(--card);border-radius:var(--radius);
@@ -448,27 +364,16 @@
       box-shadow:var(--shadow);border:1.5px solid var(--border);
       transition:transform .2s,box-shadow .2s;
       animation:fadeUp .3s ease both;
-      display:flex;flex-direction:column;
     }
     .nf-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-md)}
-    /* PE cards — fade sequencial */
-    .nf-card.pe-card{
-      opacity:0;transform:translateY(14px);
-      animation:none;
-      transition:opacity .4s ease, transform .4s ease, box-shadow .2s, border-color .2s;
-    }
-    .nf-card.pe-card.visible{opacity:1;transform:translateY(0)}
-    .nf-card-img{aspect-ratio:4/5;overflow:hidden;background:var(--bg2)}
+    .nf-card-img{aspect-ratio:3/4;overflow:hidden;background:var(--bg2)}
     .nf-card-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s cubic-bezier(.25,.46,.45,.94)}
     .nf-card:hover .nf-card-img img{transform:scale(1.05)}
-    .nf-card-info{
-      padding:10px 12px 12px;
-      display:flex;flex-direction:column;flex:1;
-    }
+    .nf-card-info{padding:8px 10px 10px}
     .nf-card-title{
       font-size:11px;font-weight:700;line-height:1.3;color:var(--text);
       display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
-      margin-bottom:0;flex:1;
+      margin-bottom:3px;
     }
     .nf-card-meta{
       display:inline-block;
@@ -477,10 +382,7 @@
       border:1px solid rgba(26,107,46,.25);
       border-radius:20px;padding:2px 8px;
     }
-    .nf-card-footer{
-      display:flex;flex-direction:column;align-items:flex-start;gap:4px;
-      margin-top:8px;
-    }
+    .nf-card-footer{display:flex;flex-direction:column;align-items:flex-start;gap:4px;margin-top:4px}
     .nf-card-price{
       font-family:var(--fd);font-size:12px;font-weight:800;color:var(--text);letter-spacing:-.3px;
     }
@@ -507,10 +409,10 @@
     @keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 
     /* ── RESULTS PAGE ── */
-    .page-home{display:block;flex:1}
-    .page-results{display:none;flex:1}
+    .page-home{display:block}
+    .page-results{display:none}
     .results-header{
-      max-width:1280px;margin:0 auto;padding:16px 24px 0;
+      max-width:680px;margin:0 auto;padding:16px 16px 0;
       display:flex;align-items:center;gap:10px;flex-wrap:wrap;
     }
     .results-back{
@@ -522,59 +424,10 @@
     }
     .results-back:hover{border-color:var(--green);color:var(--green)}
     .results-info{font-size:11px;color:var(--muted);font-weight:500}
-    .results-section{max-width:1280px;margin:0 auto;padding:24px 24px 80px;min-height:60vh}
-    .country-filter{
-      max-width:1280px;margin:0 auto;
-      padding:16px 24px 4px;
-      display:none;flex-direction:column;gap:8px;
-    }
-    .country-filter.visible{display:flex}
-    .country-filter-label{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted)}
-    .cf-scroll-wrap{position:relative}
-    .cf-scroll-wrap::after{
-      content:'';position:absolute;right:0;top:0;width:40px;height:100%;
-      background:linear-gradient(to left,var(--bg),transparent);
-      pointer-events:none;
-    }
-    .cf-scroll-wrap.at-end::after{opacity:0}
-    .cf-arrow{
-      position:absolute;right:-4px;top:50%;transform:translateY(-50%);
-      width:26px;height:26px;border-radius:50%;
-      background:var(--white);border:1.5px solid var(--border);
-      box-shadow:var(--shadow);cursor:pointer;z-index:4;
-      display:flex;align-items:center;justify-content:center;
-      font-size:12px;color:var(--text2);transition:all .15s;
-    }
-    .cf-arrow:hover{border-color:var(--green);color:var(--green)}
-    .cf-arrow.hidden{opacity:0;pointer-events:none}
-    @media(max-width:600px){.cf-arrow{display:none}}
-    .country-filter-row{
-      display:flex;gap:8px;
-      overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;
-      padding-bottom:4px;
-    }
-    .country-filter-row::-webkit-scrollbar{display:none}
-    .country-btn{
-      display:flex;flex-direction:column;align-items:center;gap:4px;
-      background:none;border:2px solid transparent;
-      cursor:pointer;padding:8px 10px;border-radius:10px;
-      transition:all .15s;flex-shrink:0;
-      min-width:0;
-    }
-    .country-btn:hover{background:var(--bg2)}
-    .country-btn.active{background:#edfaf1;border-color:var(--green)}
-    .country-btn img{
-      width:clamp(32px,6vw,44px);height:clamp(32px,6vw,44px);
-      object-fit:contain;display:block;
-    }
-    .country-btn-label{
-      font-size:clamp(8px,1.5vw,10px);font-weight:700;
-      text-transform:uppercase;color:var(--text2);
-      text-align:center;white-space:nowrap;
-    }
+    .results-section{max-width:680px;margin:0 auto;padding:28px 16px 80px}
     /* ── MENU CATEGORIAS na tela de resultados ── */
     .results-cats{
-      padding:10px 40px 0 24px;
+      padding:10px 40px 0 16px;
       display:flex;gap:6px;overflow-x:auto;
       scroll-behavior:smooth;
       -webkit-overflow-scrolling:touch;scrollbar-width:none;
@@ -593,18 +446,18 @@
     }
     .nf-card{position:relative}
     .cat-badge-pe{
-      background:var(--white)!important;
-      color:var(--green)!important;border-color:var(--green)!important;font-weight:700;
+      background:linear-gradient(135deg,#1a6b2e,#23882e)!important;
+      color:#fff!important;border-color:#1a6b2e!important;font-weight:700;
+      box-shadow:0 2px 8px rgba(26,107,46,0.35)!important;
       padding:7px 14px!important;
     }
-    .cat-badge-pe:hover{background:#f4faf5!important;transform:translateY(-1px)}
-    /* verde só na home (círculo) */
-    .cat-circle.pe{
-      background:linear-gradient(135deg,#1a6b2e,#23882e);
-      border-color:transparent;
-    }
+    .cat-badge-pe:hover{opacity:.88;transform:translateY(-1px)}
     /* flags: controlado por JS via detecção de suporte */
-    .cat-icon-flag{display:none} /* não usado */
+    .cat-icon-flag{display:none;font-size:15px}
+    .cat-icon-emoji{display:inline}
+    /* classe aplicada no <html> quando flags são suportadas */
+    html.flags-supported .cat-icon-flag{display:inline}
+    html.flags-supported .cat-icon-emoji{display:none}
     .pe-sidebar-badge{
       display:inline-flex;align-items:center;gap:5px;
       background:#edfaf1;border:1.5px solid #1a6b2e;
@@ -728,7 +581,7 @@
     .lb-prev{left:12px}.lb-next{right:12px}
     .lb-cnt{position:absolute;bottom:16px;left:50%;transform:translateX(-50%);font-size:11px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.4);font-weight:500}
 
-    footer{background:var(--green);padding:24px 20px;text-align:center;margin-top:auto}
+    footer{background:var(--green);padding:24px 20px;text-align:center}
     footer img{height:28px;opacity:.9;margin-bottom:6px;mix-blend-mode:screen}
     footer p{font-size:10px;color:rgba(255,255,255,.5);letter-spacing:1px;transition:opacity .4s ease}
   </style>
@@ -780,97 +633,41 @@
 <div class="page-home" id="pageHome">
 
   <div class="hero">
+    <canvas id="heroCanvas"></canvas>
     <h1 id="heroTitle">Encontre sua<br><em>camisa favorita</em></h1>
     <p class="hero-sub" id="heroSub">Catálogo ao vivo. Busque, escolha e encomende.</p>
-    <div class="hero-search">
-      <div class="hero-search-inner">
-        <input type="text" id="sinput" class="hero-sinput" placeholder="Time, seleção ou temporada..." autocomplete="off"/>
-        <button class="hero-voice" id="voiceBtn" onclick="startVoice()" title="Busca por voz" aria-label="Busca por voz">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
-            <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
-            <line x1="12" y1="19" x2="12" y2="23"/>
-            <line x1="8" y1="23" x2="16" y2="23"/>
-          </svg>
-        </button>
-        <button class="hero-sbtn" id="sbtn" onclick="doSearch()">Buscar</button>
-      </div>
-      <div class="trending">
-        <span class="trending-label">Em alta:</span>
-        <button class="trending-pill" onclick="quickSearch('Brasil 2026')">Brasil 2026</button>
-        <button class="trending-pill" onclick="quickSearch('Portugal')">Portugal</button>
-        <button class="trending-pill" onclick="quickSearch('Argentina')">Argentina</button>
-        <button class="trending-pill" onclick="quickSearch('Espanha')">Espanha</button>
-        <button class="trending-pill" onclick="quickSearch('Brasil 2002')">Brasil 2002</button>
-        <button class="trending-pill" onclick="quickSearch('Brasil 1998')">Brasil 1998</button>
+  </div>
+
+  <div class="search-wrap">
+    <div class="search-card">
+
+      <div class="search-row">
+        <input type="text" id="sinput" class="sinput" placeholder="Digite o nome do seu time ou seleção..." autocomplete="off"/>
+        <button class="sbtn" id="sbtn" onclick="doSearch()">Buscar</button>
       </div>
     </div>
   </div>
 
 
-  <div class="status" id="statusHome" style="padding-top:16px"><div class="spin"></div><span class="stxt" id="stxtHome"></span></div>
+  <div class="status" id="statusHome"><div class="spin"></div><span class="stxt" id="stxtHome"></span></div>
 
-  <div class="cat-section">
-    <div class="cat-visual-row">
-      <button class="cat-visual-btn" onclick="filterProntaEntrega()">
-        <div class="cat-circle pe">📦</div>
-        <span class="cat-visual-label">Pronta<br>Entrega</span>
-      </button>
-      <button class="cat-visual-btn" onclick="openCategory('5063708','Copa do Mundo 2026')">
-        <div class="cat-circle cat-circle-img">
-          <img src="/logos/copa.svg" alt="Copa do Mundo 2026" onerror="this.parentElement.innerHTML='🌍'"/>
-        </div>
-        <span class="cat-visual-label">Copa<br>2026</span>
-      </button>
-      <button class="cat-visual-btn" onclick="openCategory('745331','Brasileirão')">
-        <div class="cat-circle cat-circle-img">
-          <img src="https://dibraria-br.netlify.app/api/league-logo?slug=brasileirao" alt="Brasileirão" onerror="this.parentElement.innerHTML='🔰'"/>
-        </div>
-        <span class="cat-visual-label">Brasileirão</span>
-      </button>
-      <button class="cat-visual-btn" onclick="openCategory('745335','Premier League')">
-        <div class="cat-circle cat-circle-img">
-          <img src="https://dibraria-br.netlify.app/api/league-logo?slug=premier-league" alt="Premier League" onerror="this.parentElement.innerHTML='⚽'"/>
-        </div>
-        <span class="cat-visual-label">Premier<br>League</span>
-      </button>
-      <button class="cat-visual-btn" onclick="openCategory('745337','La Liga')">
-        <div class="cat-circle cat-circle-img">
-          <img src="https://dibraria-br.netlify.app/api/league-logo?slug=la-liga" alt="La Liga" onerror="this.parentElement.innerHTML='⚽'"/>
-        </div>
-        <span class="cat-visual-label">La Liga</span>
-      </button>
-      <button class="cat-visual-btn" onclick="openCategory('745334','Bundesliga')">
-        <div class="cat-circle cat-circle-img">
-          <img src="https://dibraria-br.netlify.app/api/league-logo?slug=bundesliga" alt="Bundesliga" onerror="this.parentElement.innerHTML='⚽'"/>
-        </div>
-        <span class="cat-visual-label">Bundesliga</span>
-      </button>
-      <button class="cat-visual-btn" onclick="openCategory('745336','Serie A')">
-        <div class="cat-circle cat-circle-img">
-          <img src="https://dibraria-br.netlify.app/api/league-logo?slug=serie-a" alt="Serie A" onerror="this.parentElement.innerHTML='⚽'"/>
-        </div>
-        <span class="cat-visual-label">Serie A</span>
-      </button>
-      <button class="cat-visual-btn" onclick="openCategory('745333','Ligue 1')">
-        <div class="cat-circle cat-circle-img">
-          <img src="https://dibraria-br.netlify.app/api/league-logo?slug=ligue-1" alt="Ligue 1" onerror="this.parentElement.innerHTML='⚽'"/>
-        </div>
-        <span class="cat-visual-label">Ligue 1</span>
-      </button>
-      <button class="cat-visual-btn" onclick="loadAndShowLatest()">
-        <div class="cat-circle">🔥</div>
-        <span class="cat-visual-label">Lançamentos</span>
-      </button>
-    </div>
+  <div class="cat-row">
+    <button class="cat-badge cat-badge-pe" onclick="filterProntaEntrega()"><span class="cat-icon">📦</span> Pronta Entrega</button>
+    <button class="cat-badge" onclick="openCategory('5063708','Copa do Mundo 2026')"><span class="cat-icon cat-icon-emoji">🌍</span><span class="cat-icon cat-icon-flag">🌍</span> Copa do Mundo</button>
+    <button class="cat-badge" onclick="openCategory('745331','Brasileirão')"><span class="cat-icon cat-icon-emoji">🔰</span><span class="cat-icon cat-icon-flag">🇧🇷</span> Brasileirão Série A</button>
+    <button class="cat-badge" onclick="openCategory('745335','Premier League')"><span class="cat-icon cat-icon-emoji">🦁</span><span class="cat-icon cat-icon-flag">🏴󠁧󠁢󠁥󠁮󠁧󠁿</span> Premier League</button>
+    <button class="cat-badge" onclick="openCategory('745337','La Liga')"><span class="cat-icon cat-icon-emoji">🐂</span><span class="cat-icon cat-icon-flag">🇪🇸</span> La Liga</button>
+    <button class="cat-badge" onclick="openCategory('745334','Bundesliga')"><span class="cat-icon cat-icon-emoji">🍺</span><span class="cat-icon cat-icon-flag">🇩🇪</span> Bundesliga</button>
+    <button class="cat-badge" onclick="openCategory('745336','Serie A')"><span class="cat-icon cat-icon-emoji">🍕</span><span class="cat-icon cat-icon-flag">🇮🇹</span> Serie A</button>
+    <button class="cat-badge" onclick="openCategory('745333','Ligue 1')"><span class="cat-icon cat-icon-emoji">🥐</span><span class="cat-icon cat-icon-flag">🇫🇷</span> Ligue 1</button>
+    <button class="cat-badge" onclick="loadAndShowLatest()"><span class="cat-icon cat-icon-emoji">🔥</span><span class="cat-icon cat-icon-flag">🔥</span> Últimos Lançamentos</button>
   </div>
 
   <!-- Pronta Entrega na frente -->
   <div class="section" id="secPE">
     <div class="section-head">
       <h2 class="section-title">📦 Pronta Entrega no Brasil</h2>
-      <span class="section-pill" style="background:#edfaf1;color:#1a6b2e;border:1.5px solid #1a6b2e">EM ESTOQUE NACIONAL</span>
-      <span class="section-pill" style="background:#fff3cd;color:#856404;border:1.5px solid #ffc107;margin-left:6px">RECEBA ANTES DA COPA</span>
+      <span class="section-pill" style="background:#edfaf1;color:#1a6b2e;border-color:#1a6b2e">Em estoque</span>
     </div>
     <div class="nf-grid" id="gridPE"></div>
   </div>
@@ -879,7 +676,7 @@
 
 <!-- ══ RESULTS ══ -->
 <div class="page-results" id="pageResults">
-  <div class="results-header" style="max-width:1280px;margin:0 auto;padding:16px 24px 0;display:flex;align-items:center;gap:10px">
+  <div class="results-header">
     <button class="results-back" onclick="goHome()">← Início</button>
     <span id="resultsInfo" class="results-info"></span>
   </div>
@@ -888,36 +685,17 @@
     <button class="rc-scroll-btn" id="rcScrollBtn" onclick="scrollResultsCats()" aria-label="Ver mais">›</button>
     <div class="results-cats" id="resultsCats" onscroll="updateResultsCats()">
       <button class="cat-badge cat-badge-pe" onclick="filterProntaEntrega()"><span class="cat-icon">📦</span> Pronta Entrega</button>
-      <button class="cat-badge" onclick="openCategory('5063708','Copa do Mundo 2026')"><img src="/logos/copa.svg" alt="Copa 2026" style="width:16px;height:16px;object-fit:contain;vertical-align:middle;flex-shrink:0"> Copa 2026</button>
-      <button class="cat-badge" onclick="openCategory('745331','Brasileirão')"><img src="https://dibraria-br.netlify.app/api/league-logo?slug=brasileirao" alt="brasileirao" style="width:16px;height:16px;object-fit:contain;vertical-align:middle;flex-shrink:0"> Brasileirão</button>
-      <button class="cat-badge" onclick="openCategory('745335','Premier League')"><img src="https://dibraria-br.netlify.app/api/league-logo?slug=premier-league" alt="Premier League" style="width:16px;height:16px;object-fit:contain;vertical-align:middle;flex-shrink:0"> Premier</button>
-      <button class="cat-badge" onclick="openCategory('745337','La Liga')"><img src="https://dibraria-br.netlify.app/api/league-logo?slug=la-liga" alt="La Liga" style="width:16px;height:16px;object-fit:contain;vertical-align:middle;flex-shrink:0"> La Liga</button>
-      <button class="cat-badge" onclick="openCategory('745334','Bundesliga')"><img src="https://dibraria-br.netlify.app/api/league-logo?slug=bundesliga" alt="bundesliga" style="width:16px;height:16px;object-fit:contain;vertical-align:middle;flex-shrink:0"> Bundesliga</button>
-      <button class="cat-badge" onclick="openCategory('745336','Serie A')"><img src="https://dibraria-br.netlify.app/api/league-logo?slug=serie-a" alt="seriea" style="width:16px;height:16px;object-fit:contain;vertical-align:middle;flex-shrink:0"> Serie A</button>
-      <button class="cat-badge" onclick="openCategory('745333','Ligue 1')"><img src="https://dibraria-br.netlify.app/api/league-logo?slug=ligue-1" alt="ligue1" style="width:16px;height:16px;object-fit:contain;vertical-align:middle;flex-shrink:0"> Ligue 1</button>
-      <button class="cat-badge" onclick="loadAndShowLatest()"><span class="cat-icon">🔥</span> Lançamentos</button>
+      <button class="cat-badge" onclick="openCategory('5063708','Copa do Mundo 2026')"><span class="cat-icon cat-icon-emoji">🌍</span><span class="cat-icon cat-icon-flag">🌍</span> Copa 2026</button>
+      <button class="cat-badge" onclick="openCategory('745331','Brasileirão')"><span class="cat-icon cat-icon-emoji">🔰</span><span class="cat-icon cat-icon-flag">🇧🇷</span> Brasileirão</button>
+      <button class="cat-badge" onclick="openCategory('745335','Premier League')"><span class="cat-icon cat-icon-emoji">🦁</span><span class="cat-icon cat-icon-flag">🏴󠁧󠁢󠁥󠁮󠁧󠁿</span> Premier</button>
+      <button class="cat-badge" onclick="openCategory('745337','La Liga')"><span class="cat-icon cat-icon-emoji">🐂</span><span class="cat-icon cat-icon-flag">🇪🇸</span> La Liga</button>
+      <button class="cat-badge" onclick="openCategory('745334','Bundesliga')"><span class="cat-icon cat-icon-emoji">🍺</span><span class="cat-icon cat-icon-flag">🇩🇪</span> Bundesliga</button>
+      <button class="cat-badge" onclick="openCategory('745336','Serie A')"><span class="cat-icon cat-icon-emoji">🍕</span><span class="cat-icon cat-icon-flag">🇮🇹</span> Serie A</button>
+      <button class="cat-badge" onclick="openCategory('745333','Ligue 1')"><span class="cat-icon cat-icon-emoji">🥐</span><span class="cat-icon cat-icon-flag">🇫🇷</span> Ligue 1</button>
+      <button class="cat-badge" onclick="loadAndShowLatest()"><span class="cat-icon cat-icon-emoji">🔥</span><span class="cat-icon cat-icon-flag">🔥</span> Lançamentos</button>
     </div>
   </div>
   <div class="status" id="statusResults"><div class="spin"></div><span class="stxt" id="stxtResults"></span></div>
-  <div class="country-filter" id="countryFilter">
-    <div class="country-filter-label">Filtrar por seleção</div>
-    <div class="cf-scroll-wrap" id="cfWrap">
-      <button class="cf-arrow" id="cfArrow" onclick="scrollCF()" aria-label="Ver mais">›</button>
-    <div class="country-filter-row" id="cfRow" onscroll="updateCF()">
-      <button class="country-btn active" id="cbAll" onclick="filterCountry('all',this)"><span style="font-size:24px;line-height:1">🌍</span><span class="country-btn-label">Todos</span></button>
-      <button class="country-btn" onclick="filterCountry('brasil',this)"><img src="https://dibraria-br.netlify.app/api/team-logo?slug=brasil" alt="Brasil"><span class="country-btn-label">Brasil</span></button>
-      <button class="country-btn" onclick="filterCountry('alemanha',this)"><img src="https://dibraria-br.netlify.app/api/team-logo?slug=alemanha" alt="Alemanha"><span class="country-btn-label">Alemanha</span></button>
-      <button class="country-btn" onclick="filterCountry('argentina',this)"><img src="https://dibraria-br.netlify.app/api/team-logo?slug=argentina" alt="Argentina"><span class="country-btn-label">Argentina</span></button>
-      <button class="country-btn" onclick="filterCountry('belgica',this)"><img src="https://dibraria-br.netlify.app/api/team-logo?slug=belgica" alt="Bélgica"><span class="country-btn-label">Bélgica</span></button>
-      <button class="country-btn" onclick="filterCountry('espanha',this)"><img src="https://dibraria-br.netlify.app/api/team-logo?slug=espanha" alt="Espanha"><span class="country-btn-label">Espanha</span></button>
-      <button class="country-btn" onclick="filterCountry('escocia',this)"><img src="https://dibraria-br.netlify.app/api/team-logo?slug=escocia" alt="Escócia"><span class="country-btn-label">Escócia</span></button>
-      <button class="country-btn" onclick="filterCountry('japao',this)"><img src="https://dibraria-br.netlify.app/api/team-logo?slug=japao" alt="Japão"><span class="country-btn-label">Japão</span></button>
-      <button class="country-btn" onclick="filterCountry('mexico',this)"><img src="https://dibraria-br.netlify.app/api/team-logo?slug=mexico" alt="México"><span class="country-btn-label">México</span></button>
-      <button class="country-btn" onclick="filterCountry('portugal',this)"><img src="https://dibraria-br.netlify.app/api/team-logo?slug=portugal" alt="Portugal"><span class="country-btn-label">Portugal</span></button>
-      <button class="country-btn" onclick="filterCountry('senegal',this)"><img src="https://dibraria-br.netlify.app/api/team-logo?slug=senegal" alt="Senegal"><span class="country-btn-label">Senegal</span></button>
-    </div>
-    </div>
-  </div>
   <div class="results-section">
     <div class="err" id="errBox"></div>
     <div class="nf-grid" id="gridResults"></div>
@@ -1192,62 +970,7 @@ function isProntaEntrega(album) {
   return PRONTA_ENTREGA_IDS.has(String(album.id));
 }
 
-// ── FILTRO DE SELEÇÕES ─────────────────────────────────────────────────────
-var _allResults   = [];
-var _filterActive = false;
-
-var COUNTRY_TERMS = {
-  brasil:    ['brazil','brasil','cbf'],
-  alemanha:  ['germany','deutschland','alemanha','dfb'],
-  argentina: ['argentina','afa'],
-  belgica:   ['belgium','belgique','belgica','rbfa'],
-  espanha:   ['spain','espana','espanha','rfef'],
-  escocia:   ['scotland','escocia','sfa'],
-  japao:     ['japan','japao','jfa'],
-  mexico:    ['mexico','femexfut'],
-  portugal:  ['portugal','fpf'],
-  senegal:   ['senegal','fsf'],
-};
-
-function showCountryFilter(show) {
-  var el = document.getElementById('countryFilter');
-  if (!el) return;
-  el.classList.toggle('visible', show);
-  if (!show) {
-    document.querySelectorAll('.country-btn').forEach(function(b){ b.classList.remove('active'); });
-    var all = document.getElementById('cbAll');
-    if (all) all.classList.add('active');
-  }
-}
-
-function filterCountry(country, btn) {
-  document.querySelectorAll('.country-btn').forEach(function(b){ b.classList.remove('active'); });
-  if (btn) btn.classList.add('active');
-  var grid = document.getElementById('gridResults');
-  if (!grid) return;
-  if (country === 'all') {
-    renderGrid(grid, _allResults, activeStore, _filterActive);
-    return;
-  }
-  var terms = COUNTRY_TERMS[country] || [country];
-  var filtered = _allResults.filter(function(a) {
-    var t = (a.title || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');
-    return terms.some(function(term){ return t.includes(term); });
-  });
-  grid.innerHTML = '';
-  grid.style.gridTemplateColumns = '';
-  if (filtered.length) {
-    renderGrid(grid, filtered, activeStore, _filterActive);
-  } else {
-    grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:48px 16px;color:var(--muted)"><div style="font-size:48px;margin-bottom:12px">🔍</div><p style="font-weight:600">Nenhuma camisa encontrada para essa seleção.</p></div>';
-  }
-}
-
 async function filterProntaEntrega() {
-  // Marcar PE como active na home
-  document.querySelectorAll('.cat-visual-btn').forEach(function(b){ b.classList.remove('active'); });
-  var peBtn = document.querySelector('.cat-visual-btn[onclick*="filterProntaEntrega"]');
-  if (peBtn) { peBtn.classList.add('active'); peBtn.parentNode.prepend(peBtn); }
   showPage('results');
   document.getElementById('resultsInfo').textContent = '📦 Pronta Entrega no Brasil';
   clearResults();
@@ -1270,9 +993,7 @@ async function filterProntaEntrega() {
     }
     setSt('results', false);
     if (allPE.length) {
-      _allResults = allPE; _filterActive = true;
       renderGrid(document.getElementById('gridResults'), allPE, activeStore, true);
-      showCountryFilter(true);
       document.getElementById('resultsInfo').textContent =
         '📦 Pronta Entrega · ' + allPE.length + ' produto' + (allPE.length !== 1 ? 's' : '');
     } else {
@@ -1285,56 +1006,15 @@ let currentPhotos = [];
 let lbIndex = 0;
 
 // ── INIT ────────────────────────────────────────────────────────────────────
-// ── BUSCA POR VOZ ────────────────────────────────────────────────────────────
-function startVoice() {
-  var SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-  if (!SpeechRecognition) {
-    alert('Busca por voz não suportada neste navegador. Tente Chrome ou Edge.');
-    return;
-  }
-  var btn = document.getElementById('voiceBtn');
-  var input = document.getElementById('sinput');
-  var rec = new SpeechRecognition();
-  rec.lang = 'pt-BR';
-  rec.interimResults = false;
-  rec.maxAlternatives = 1;
-
-  rec.onstart = function() { btn && btn.classList.add('listening'); btn && (btn.style.color='#e53935'); };
-  rec.onend   = function() { btn && btn.classList.remove('listening'); btn && (btn.style.color=''); };
-  rec.onerror = function(e) {
-    btn && btn.classList.remove('listening'); btn && (btn.style.color='');
-    if (e.error !== 'no-speech') alert('Erro no microfone: ' + e.error);
-  };
-  rec.onresult = function(e) {
-    var transcript = e.results[0][0].transcript;
-    input.value = transcript;
-    doSearch();
-  };
-  rec.start();
-}
-
 document.addEventListener('DOMContentLoaded', () => {
   selStore('royal-sports');
   loadSections();
   initHeroRotation();
+  initHeroCanvas();
   detectFlagSupport();
   setTimeout(updateResultsCats, 100);
-  setTimeout(updateCF, 100);
 });
 
-function scrollCF() {
-  var row = document.getElementById('cfRow');
-  if (row) row.scrollBy({ left: 200, behavior: 'smooth' });
-}
-function updateCF() {
-  var row = document.getElementById('cfRow');
-  var wrap = document.getElementById('cfWrap');
-  var btn  = document.getElementById('cfArrow');
-  if (!row) return;
-  var atEnd = row.scrollLeft >= row.scrollWidth - row.clientWidth - 4;
-  wrap && wrap.classList.toggle('at-end', atEnd);
-  btn  && btn.classList.toggle('hidden', atEnd);
-}
 function scrollResultsCats() {
   var row = document.getElementById('resultsCats');
   if (row) row.scrollBy({ left: 220, behavior: 'smooth' });
@@ -1610,15 +1290,10 @@ async function fetchAllPages(type, params) {
 }
 
 async function openCategory(categoryId, label) {
-  // Marcar categoria ativa na home e mover pra frente
-  document.querySelectorAll('.cat-visual-btn').forEach(function(b){ b.classList.remove('active'); });
-  var catBtn = document.querySelector('.cat-visual-btn[onclick*="' + categoryId + '"]');
-  if (catBtn) { catBtn.classList.add('active'); catBtn.parentNode.prepend(catBtn); }
   showPage('results');
   document.getElementById('resultsInfo').textContent = label;
   setSt('results', true, `Carregando ${label}...`);
   clearResults();
-  showCountryFilter(false);
 
   try {
     lastResults = await fetchAllPages('category', { store: activeStore, id: categoryId });
@@ -1714,59 +1389,22 @@ async function loadPESection() {
   if (!grid) return;
   var cols = getCols();
   grid.style.gridTemplateColumns = 'repeat('+cols+', 1fr)';
-
-  // Skeletons proporcional ao estoque
-  var peCount = PRONTA_ENTREGA_IDS.size;
-  grid.innerHTML = Array(Math.min(peCount, cols * 2)).fill(
-    '<div class="nf-skeleton"><div class="nf-sk-img"></div><div class="nf-sk-info"></div></div>'
-  ).join('');
-
-  // Buscar TODOS em paralelo — muito mais rápido que sequencial
-  var ids = Array.from(PRONTA_ENTREGA_IDS);
-  var promises = ids.map(function(_id) {
-    return fetch(API + '/api/album?store=royal-sports&id=' + enc(_id))
-      .then(function(r){ return r.json(); })
-      .then(function(d){
-        if (!d || !d.title) return null;
-        return { id: _id, title: d.title, cover: (d.photos && d.photos[0]) || '', store: 'royal-sports', albumUrl: 'https://royal-sports.x.yupoo.com/albums/' + _id };
-      })
-      .catch(function(){ return null; });
-  });
-
-  var results = await Promise.all(promises);
-  var allPE = results.filter(Boolean);
-
-  grid.innerHTML = '';
-  grid.style.gridTemplateColumns = 'repeat('+cols+', 1fr)';
-
-  if (!allPE.length) {
-    grid.innerHTML = '<p style="color:#888;font-size:12px;padding:16px;grid-column:1/-1">Nenhum produto em pronta entrega no momento.</p>';
-    return;
+  grid.innerHTML = Array(cols*2).fill('<div class="nf-skeleton"><div class="nf-sk-img"></div><div class="nf-sk-info"></div></div>').join('');
+  var allPE = [];
+  for (var _id of PRONTA_ENTREGA_IDS) {
+    try {
+      var _res  = await fetch(API + '/api/album?store=royal-sports&id=' + enc(_id));
+      var _data = await _res.json();
+      if (_data && _data.title) {
+        allPE.push({ id: _id, title: _data.title, cover: (_data.photos && _data.photos[0]) || '', store: 'royal-sports', albumUrl: 'https://royal-sports.x.yupoo.com/albums/' + _id });
+      }
+    } catch(e) {}
   }
-
-  // Renderizar e fazer fade sequencial por card
-  allPE.forEach(function(album, i) {
-    var card = document.createElement('div');
-    card.className = 'nf-card pe-card';
-    var img = document.createElement('img');
-    img.src = API + '/api/image?url=' + enc(album.cover);
-    img.alt = esc(album.title);
-    img.loading = i < 6 ? 'eager' : 'lazy';
-    img.onerror = function(){ this.parentElement.style.background='#e8e8e8'; };
-    var imgDiv = document.createElement('div');
-    imgDiv.className = 'nf-card-img';
-    imgDiv.appendChild(img);
-    var metaHtml = cardMeta(album.title) ? '<div class="nf-card-meta">'+cardMeta(album.title)+'</div>' : '<span></span>';
-    var infoDiv = document.createElement('div');
-    infoDiv.className = 'nf-card-info';
-    infoDiv.innerHTML = '<div class="nf-card-title">'+esc(album.title)+'</div><div class="nf-card-footer">'+metaHtml+'<div class="nf-card-price">'+cardPrice(album.title).label+'</div></div>';
-    card.appendChild(imgDiv);
-    card.appendChild(infoDiv);
-    card.addEventListener('click', function(){ openAlbum(album); });
-    grid.appendChild(card);
-    // Fade escalonado — cada card 80ms depois do anterior
-    setTimeout(function(){ card.classList.add('visible'); }, 60 + i * 80);
-  });
+  if (allPE.length) {
+    renderGrid(grid, allPE, 'royal-sports', true);
+  } else {
+    grid.innerHTML = '<p style="color:#888;font-size:12px;padding:16px;grid-column:1/-1">Nenhum produto em pronta entrega no momento.</p>';
+  }
 }
 
 async function loadAndShowLatest() {
@@ -1916,8 +1554,7 @@ async function openAlbum(album) {
   if (document.getElementById('sbPeBadge')) {
     document.getElementById('sbPeBadge').style.display = _ispe ? 'inline-flex' : 'none';
   }
-  const _price = cardPrice(album.title).label;
-  const wh = _ispe ? waPELink(album.title, _price) : waLink(album.title, _price);
+  const wh = _ispe ? waPELink(album.title, album.albumUrl) : waLink(album.title, album.albumUrl);
   document.getElementById('sbWa').href      = wh;
   document.getElementById('mobileWa').href  = wh;
 
@@ -2020,7 +1657,7 @@ function showPage(p) {
   document.getElementById('pageHome').style.display    = p === 'home'    ? 'block' : 'none';
   document.getElementById('pageResults').style.display = p === 'results' ? 'block' : 'none';
 }
-function goHome() { showPage('home'); setSt('results', false); closeAlbum(); showCountryFilter(false); }
+function goHome() { showPage('home'); setSt('results', false); closeAlbum(); }
 
 // ── HELPERS ──────────────────────────────────────────────────────────────────
 function clearResults() {
@@ -2085,13 +1722,16 @@ function setSt(pg, on, txt) {
   }
 }
 function setBtn(d) { document.getElementById('sbtn').disabled = d; }
-function waPELink(t, price) {
-  var msg = 'Olá! Quero encomendar a camisa:\n\n👕 *' + t + '*\n💰 Valor: ' + price + '\n\n📦 Vi que tem pronta entrega no Brasil!\n\nQuais tamanhos estão disponíveis?';
+function waPELink(t, u) {
+  var msg = 'Olá! Quero comprar a camisa *' + t + '* — vi que está em pronta entrega no Brasil! 🇧🇷\n\nLink: ' + u + '\n\nTamanhos disponíveis?';
   return 'https://wa.me/' + WA + '?text=' + encodeURIComponent(msg);
 }
-function waLink(t, price) {
-  var msg = 'Olá! Quero encomendar a camisa:\n\n👕 *' + t + '*\n💰 Valor previsto: ' + price + '\n\nQuais tamanhos estão disponíveis?';
-  return 'https://wa.me/' + WA + '?text=' + encodeURIComponent(msg);
+function waLink(t, u) {
+  return `https://wa.me/${WA}?text=${encodeURIComponent(`Olá! Interesse na camisa *${t}*.
+
+Catálogo: ${u}
+
+Valores e tamanhos?`)}`;
 }
 function enc(s) { return encodeURIComponent(s || '') }
 function esc(s) { return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;') }
@@ -2139,14 +1779,6 @@ function cardPrice(title) {
   if (years.length && years.every(y => y < 2020)) {
     return { label: 'R$ 200', type: 'Retrô', desc: 'Camisa retrô importada. Consulte tamanhos pelo WhatsApp.' };
   }
-
-  // ── Brazil Home → R$ 190 ─────────────────────────────────────────────────
-  // Qualquer camisa do Brasil que seja Home/Titular (mas não Away/visitante, retrô, kids)
-  const isBrazil = has('brazil','brasil','selecao brasileira','cbf');
-  const isHome   = has('home','titular','i ');  // "I Jersey" = titular
-  const isAway   = has('away','ii ','visitante');
-  if (isBrazil && isHome && !isAway)
-    return { label: 'R$ 190', type: 'Camisa', desc: 'Camisa importada de alta qualidade. Consulte tamanhos e valores pelo WhatsApp.' };
 
   // ── Player ────────────────────────────────────────────────────────────────
   if (has('player','version player','versao player'))
