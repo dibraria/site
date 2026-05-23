@@ -593,11 +593,13 @@
     }
     .nf-card{position:relative}
     .cat-badge-pe{
-      background:var(--white)!important;
-      color:var(--green)!important;border-color:var(--green)!important;font-weight:700;
-      padding:7px 14px!important;
+      background:var(--white);
+      color:var(--text2);border-color:var(--border);font-weight:600;
     }
-    .cat-badge-pe:hover{background:#f4faf5!important;transform:translateY(-1px)}
+    .cat-badge-pe:hover{border-color:var(--green);color:var(--green);background:#f4faf5}
+    .results-cats .cat-badge.rc-active{
+      background:#edfaf1;border-color:var(--green);color:var(--green);font-weight:700;
+    }
     /* verde só na home (círculo) */
     .cat-circle.pe{
       background:linear-gradient(135deg,#1a6b2e,#23882e);
@@ -887,7 +889,7 @@
     <span class="rc-chevron">›</span>
     <button class="rc-scroll-btn" id="rcScrollBtn" onclick="scrollResultsCats()" aria-label="Ver mais">›</button>
     <div class="results-cats" id="resultsCats" onscroll="updateResultsCats()">
-      <button class="cat-badge cat-badge-pe" onclick="filterProntaEntrega()"><span class="cat-icon">📦</span> Pronta Entrega</button>
+      <button class="cat-badge" onclick="filterProntaEntrega()"><span class="cat-icon">📦</span> Pronta Entrega</button>
       <button class="cat-badge" onclick="openCategory('5063708','Copa do Mundo 2026')"><img src="/logos/copa.svg" alt="Copa 2026" style="width:16px;height:16px;object-fit:contain;vertical-align:middle;flex-shrink:0"> Copa 2026</button>
       <button class="cat-badge" onclick="openCategory('745331','Brasileirão')"><img src="/logos/brasileirao.svg" alt="brasileirao" style="width:16px;height:16px;object-fit:contain;vertical-align:middle;flex-shrink:0"> Brasileirão</button>
       <button class="cat-badge" onclick="openCategory('745335','Premier League')"><img src="/logos/premier.svg" alt="Premier League" style="width:16px;height:16px;object-fit:contain;vertical-align:middle;flex-shrink:0"> Premier</button>
@@ -1248,6 +1250,10 @@ async function filterProntaEntrega() {
   document.querySelectorAll('.cat-visual-btn').forEach(function(b){ b.classList.remove('active'); });
   var peBtn = document.querySelector('.cat-visual-btn[onclick*="filterProntaEntrega"]');
   if (peBtn) { peBtn.classList.add('active'); peBtn.parentNode.prepend(peBtn); }
+  // Marcar ativo na barra de resultados + mostrar filtro escudos
+  var rcPeBtn = document.querySelector('#resultsCats .cat-badge[onclick*="filterProntaEntrega"]');
+  setRcActive(rcPeBtn);
+  showCountryFilter(true);
   showPage('results');
   document.getElementById('resultsInfo').textContent = '📦 Pronta Entrega no Brasil';
   clearResults();
@@ -1609,11 +1615,19 @@ async function fetchAllPages(type, params) {
   return all;
 }
 
+function setRcActive(btn) {
+  document.querySelectorAll('#resultsCats .cat-badge').forEach(function(b){ b.classList.remove('rc-active'); });
+  if (btn) btn.classList.add('rc-active');
+}
+
 async function openCategory(categoryId, label) {
   // Marcar categoria ativa na home e mover pra frente
   document.querySelectorAll('.cat-visual-btn').forEach(function(b){ b.classList.remove('active'); });
   var catBtn = document.querySelector('.cat-visual-btn[onclick*="' + categoryId + '"]');
   if (catBtn) { catBtn.classList.add('active'); catBtn.parentNode.prepend(catBtn); }
+  // Marcar ativo na barra de resultados
+  var rcBtn = document.querySelector('#resultsCats .cat-badge[onclick*="' + categoryId + '"]');
+  setRcActive(rcBtn);
   showPage('results');
   document.getElementById('resultsInfo').textContent = label;
   setSt('results', true, `Carregando ${label}...`);
