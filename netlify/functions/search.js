@@ -13,7 +13,7 @@ exports.handler = async (event) => {
     };
   }
 
-  const { store, q } = event.queryStringParameters || {};
+  const { store, q, page = '1' } = event.queryStringParameters || {};
 
   if (!store || !STORES[store])
     return err(400, `Loja inválida. Use: ${Object.keys(STORES).join(' ou ')}`);
@@ -21,7 +21,7 @@ exports.handler = async (event) => {
     return err(400, 'Parâmetro "q" é obrigatório.');
 
   try {
-    const url = `https://${store}.x.yupoo.com/search/album?uid=1&sort=unix&q=${encodeURIComponent(q)}`;
+    const url = `https://${store}.x.yupoo.com/search/album?uid=1&sort=unix&q=${encodeURIComponent(q)}&page=${page}`;
     console.log('[SEARCH]', url);
 
     const { data } = await axios.get(url, {
@@ -32,8 +32,8 @@ exports.handler = async (event) => {
     const $      = cheerio.load(data);
     const albums = parseAlbums($, store);
 
-    console.log(`[SEARCH] ${albums.length} álbuns`);
-    return ok({ results: albums, total: albums.length, query: q, store });
+    console.log(`[SEARCH] página ${page}: ${albums.length} álbuns`);
+    return ok({ results: albums, total: albums.length, query: q, store, page: parseInt(page) });
 
   } catch (e) {
     console.error('[SEARCH ERROR]', e.message);
